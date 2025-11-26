@@ -1,16 +1,14 @@
-## Hi there 👋
-
-<!--
-**soyjackconnesuieur/soyjackconnesuieur** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-
-Here are some ideas to get you started:
-
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+<html>
+<h1>
+    The Soychives
+</h1>
+<p>
+    Its over archive.ph bros, we must archive as much as we can before archive.ph may be fucked by the feds.
+</p>
+<p>
+    This is my jungle of archives. You make your own jungle too.
+</p>
+<p>
+</p>
+<image src="https://soyjakwiki.org/images/5/58/21928_-_SoyBooru.png" alt="YOU WILL HELP" />
+</html> 
