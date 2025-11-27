@@ -1,9 +1,7 @@
-name: Generate Directory Listings
-
+name: Generate the soychive listings
 on:
   push:
-    branches:
-      - main  # Change to 'master' if your branch is named master
+    branches: ["main"]
 
 permissions:
   contents: write
@@ -16,15 +14,41 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Generate Directory Listings
-        uses: jayanta525/github-pages-directory-listing@v4.0.0
-        with:
-          FOLDER: "." 
-          RECURSIVE: true 
+        run: |
+          python3 -c "
+          import os
+
+          ignore_list = ['.git', '.github']
+
+          for root, dirs, files in os.walk('.'):
+              dirs[:] = [d for d in dirs if d not in ignore_list]
+              if root == '.':
+                  continue
+              
+              # HTML Content
+              content = f'<html><body><h1>Index of {root}</h1><hr><ul>'
+              
+              # List Folders
+              for d in dirs:
+                  content += f'<li><a href=\'{d}/\'>{d}/</a></li>'
+              
+              # List Files
+              for f in files:
+                  if f != 'index.html':
+                      content += f'<li><a href=\'{f}\'>{f}</a></li>'
+                      
+              content += '</ul></body></html>'
+              
+              # Write the file
+              with open(os.path.join(root, 'index.html'), 'w') as f:
+                  f.write(content)
+          "
 
       - name: Commit and Push
         run: |
-          git config --global user.name "Listingjak"
-          git config --global user.email "listing@soyjak.com"
+          git config --global user.name "Soychives Bot"
+          git config --global user.email "bot@noreply.github.com"
           git add .
-          git commit -m "Auto-generated directory listings" || echo "No changes to commit"
+          # The '|| echo' part prevents it from crashing if there's nothing new to save
+          git commit -m "Update directory listings [skip ci]" || echo "No changes to commit"
           git push
