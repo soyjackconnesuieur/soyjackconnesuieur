@@ -1,0 +1,30 @@
+name: Generate Directory Listings
+
+on:
+  push:
+    branches:
+      - main  # Change to 'master' if your branch is named master
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Generate Directory Listings
+        uses: jayanta525/github-pages-directory-listing@v4.0.0
+        with:
+          FOLDER: "." 
+          RECURSIVE: true 
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "Listingjak"
+          git config --global user.email "listing@soyjak.com"
+          git add .
+          git commit -m "Auto-generated directory listings" || echo "No changes to commit"
+          git push
