@@ -1,4 +1,18 @@
 <html>
+<head>
+    <style>
+        /* Optional shitty styling to make the list readable */
+        #directory-list {
+            font-family: "Courier New", monospace;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+
 <h1>
     The Soychives
 </h1>
@@ -8,7 +22,50 @@
 <p>
     This is my jungle of archives. You make your own jungle too.
 </p>
+
+<div id="directory-list">
+    Loading shitty list...
+</div>
+
+<script>
+    // ---------------------------------------------------------
+    // EDIT THESE TWO LINES:
+    const username = 'soyjackconnesuieur'; // e.g. 'CoolGuy123'
+    const repo = 'soyjackconnesuieur';         // e.g. 'soychives'
+    // ---------------------------------------------------------
+
+    const apiUrl = `https://api.github.com/repos/${username}/${repo}/contents/`;
+
+    fetch(apiUrl)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        const listContainer = document.getElementById('directory-list');
+        let html = '<h3>Files & Folders:</h3><ul>';
+        
+        data.forEach(item => {
+            // We only want directories (folders), but you can remove the if check to see files too
+            if (item.type === 'dir') {
+                html += `<li><a href="${item.path}/">${item.name}/</a></li>`;
+            }
+        });
+        
+        html += '</ul>';
+        listContainer.innerHTML = html;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        document.getElementById('directory-list').innerHTML = 'Failed to load list. Check console/API limits.';
+    });
+</script>
+
 <p>
 </p>
-<image src="https://soyjakwiki.org/images/5/58/21928_-_SoyBooru.png" alt="YOU WILL HELP" />
-</html> 
+<img src="https://soyjakwiki.org/images/5/58/21928_-_SoyBooru.png" alt="YOU WILL HELP" />
+
+</body>
+</html>
